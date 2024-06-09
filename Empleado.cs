@@ -34,5 +34,62 @@ namespace EspEmpleado
       return this._tareasPendientes.Count;
     }
 
+    public void CambiarEstado(int id)
+    {
+      Tarea t = this._tareasPendientes.Find(x => x._tareaId == id);
+      if (t != null)
+      {
+        this._tareasPendientes.Remove(t);
+        this._tareasRealizadas.Add(t);
+      }
+    }
+
+    public void MostrarTareasPendientes()
+    {
+      Console.WriteLine($"Tareas pendientes de {this._nombre} {this._apellidos}");
+      foreach (Tarea t in this._tareasPendientes)
+      {
+        Console.WriteLine($"Tarea {t._tareaId}: {t._descripcion}");
+      }
+    }
+
+    public void MostrarTareasRealizadas()
+    {
+      Console.WriteLine($"Tareas realizadas de {this._nombre} {this._apellidos}");
+      foreach (Tarea t in this._tareasRealizadas)
+      {
+        Console.WriteLine($"Tarea {t._tareaId}: {t._descripcion}");
+      }
+
+    }
+
+    public void BuscarTareaPorId(int id)
+    {
+      Tarea tarea = this._tareasPendientes.Concat(this._tareasRealizadas).FirstOrDefault(t => t._tareaId == id);
+      if (tarea != null)
+      {
+        Console.WriteLine(tarea);
+      }
+      else
+      {
+        Console.WriteLine("No se encontró la tarea con la ID especificada.");
+      }
+    }
+
+    public void BuscarTareaPorPalabra(string palabra)
+    {
+      var tareas = this._tareasPendientes.Concat(this._tareasRealizadas).Where(t => t._descripcion.Contains(palabra)).ToList();
+      if (tareas.Any())
+      {
+        foreach (var tarea in tareas)
+        {
+          Console.WriteLine(tarea);
+        }
+      }
+      else
+      {
+        Console.WriteLine("No se encontró ninguna tarea con la palabra clave especificada.");
+      }
+    }
   }
 }

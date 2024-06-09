@@ -2,9 +2,9 @@ namespace EspTarea
 {
   public class Tarea
   {
-    int _tareaId { set; get; }
-    string _descripcion { set; get; }
-    int _duracion { set; get; }
+    public int _tareaId { set; get; }
+    public string _descripcion { set; get; }
+    public int _duracion { set; get; }
 
     public Tarea(int id, string desc, int dur)
     {
